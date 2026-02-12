@@ -170,9 +170,9 @@ class ChatWindow(Adw.ApplicationWindow):
         while row:
             box = row.get_child()
             check_box = box.get_first_child()
-            icon = check_box.get_next_sibling()
+            label = check_box.get_next_sibling()
             check_box.set_visible(self.selection_mode)
-            icon.set_visible(not self.selection_mode)
+            label.set_visible(True)
             row = row.get_next_sibling()
 
     def on_new_chat(self, *args):
@@ -362,10 +362,11 @@ class ChatWindow(Adw.ApplicationWindow):
     def add_chat_to_sidebar(self, fp, title):
         rc = Gtk.Box(spacing=10)
         ck = Gtk.CheckButton(visible=self.selection_mode, css_classes=["selection-check"])
-        ic = Gtk.Image(icon_name="chat-symbolic", visible=not self.selection_mode)
         lb = Gtk.Label(label=title, xalign=0)
         lb.set_hexpand(True)
-        rc.append(ck); rc.append(ic); rc.append(lb)
+        lb.set_visible(True)
+        rc.append(ck)
+        rc.append(lb)
         r = Gtk.ListBoxRow(child=rc)
         r.filepath = fp
         r.chat_title = title
